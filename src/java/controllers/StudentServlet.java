@@ -58,7 +58,6 @@ public class StudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             StudentService ss = new StudentService();
@@ -67,8 +66,13 @@ public class StudentServlet extends HttpServlet {
 //          --- should only call service method ----
             
             out.println(ss.getStudents());
-            
+            String qString = request.getQueryString();
+            if (qString!= null) {
+                out.println(qString);
+                out.println("parameter delete is :"+request.getParameter("delete"));
+            }
         }
+        
     }
 
     /**

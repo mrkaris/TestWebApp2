@@ -12,6 +12,9 @@
         <title>New Student</title>
     </head>
     <body>
+        <jsp:useBean id="student" class="models.Student" scope="page"/>
+        <jsp:setProperty name="student" property="surname" value="Tasos"/>
+        Student surname : <%=student.getSurname() %>
         <h1><%=request.getAttribute("title")%></h1>
         <form action="insertStudentServlet" method="POST">
             Name: <input type="text" name="name" /><br>

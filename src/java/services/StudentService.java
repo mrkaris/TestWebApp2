@@ -35,7 +35,9 @@ public class StudentService {
                 .append("</head>")
                 .append("<body>");
         for (Student s : students) {
-            strB.append("<p>" + s + "</p>");
+            String delete = " <a href='deleteStudentServlet?delete="+s.getId()+"'>Delete</a>";
+            String update = " <a href='updateStudentServlet?update="+s.getId()+"'>Update</a>";
+            strB.append("<p>").append(s).append(delete).append(update).append("</p>");
         }
         strB.append("</body>")
                 .append("</html>");
@@ -46,6 +48,10 @@ public class StudentService {
     public boolean insertStudent(Student st) {
         StudentDao stuDao = new StudentDao();
         return stuDao.insertStudent(st);
+    }
+    public boolean deleteStudent(int id){
+        StudentDao stuDao = new StudentDao();
+        return stuDao.deleteStudent(id);
     }
 
 }

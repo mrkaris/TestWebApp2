@@ -56,6 +56,20 @@ public class DeleteStudentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DeleteStudentServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DeleteStudentServlet at " + request.getContextPath() + "</h1>");
+            //if param delete = some id call deleteStudent(someid) from student service
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     /**
