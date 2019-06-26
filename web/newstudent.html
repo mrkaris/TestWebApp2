@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>New Student</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>Insert a New Student</div>
+        <form action="insertStudentServlet" method="POST">
+            Name: <input type="text" name="name" /><br>
+            Surname: <input type="text" name="surname" /><br>
+            Grade: <input type="number" name="grade" /><br>
+            Birthdate: <input type="date" name="birthdate"/><br>
+            <input type="submit" name="new" value="Submit Student" />
+        </form>
+    </body>
+</html>
