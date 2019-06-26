@@ -13,9 +13,16 @@ import java.util.Objects;
  */
 public class Student {
     // ID, SURNAME, NAME, GRADE, BIRTHDATE
-    
+
     private int id;
     private String surname;
+
+    public Student(String surname, String name, float grade, String birthDate) {
+        this.surname = surname;
+        this.name = name;
+        this.grade = grade;
+        this.birthDate = birthDate;
+    }
 
     public Student(int id, String surname, String name, float grade, String birthDate) {
         this.id = id;
@@ -113,8 +120,5 @@ public class Student {
     public String toString() {
         return "Student{" + "id=" + id + ", surname=" + surname + ", name=" + name + ", grade=" + grade + ", birthDate=" + birthDate + '}';
     }
-    
-    
-    
-    
+
 }

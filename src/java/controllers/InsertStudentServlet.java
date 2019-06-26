@@ -12,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Student;
+import services.StudentService;
 
 /**
  *
@@ -72,6 +74,9 @@ public class InsertStudentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Student st;
+        StudentService ss = new StudentService();
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -82,10 +87,15 @@ public class InsertStudentServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet InsertStudentServlet at " + request.getContextPath() + "</h1>");
-            out.println(request.getParameter("name"));
-            out.println(request.getParameter("surname")+"<br>");
-            out.println(request.getParameter("grade")+"<br>");
-            out.println(request.getParameter("birthdate"));
+            st = new Student(request.getParameter("name"),
+                    request.getParameter("surname"),
+                    Float.parseFloat(request.getParameter("grade")),
+                    request.getParameter("birthdate"));
+            out.println(request.getParameter("birthdate")); 
+//            if (ss.insertStudent(st)) {
+//                out.print("<h2> All inserted</h2>");
+//            }
+            out.println((ss.insertStudent(st)==true)?"<h2> All inserted</h2>":"<h2> Not inserted</h2>");
             out.println("</body>");
             out.println("</html>");
         }

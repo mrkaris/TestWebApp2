@@ -43,10 +43,9 @@ public class StudentService {
         return strB.toString();
     }
 
-    
-    public int insertStudent() {
-        
-        return 0;
+    public boolean insertStudent(Student st) {
+        StudentDao stuDao = new StudentDao();
+        return stuDao.insertStudent(st);
     }
 
 }

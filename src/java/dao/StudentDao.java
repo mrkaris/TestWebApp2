@@ -20,20 +20,19 @@ import models.Student;
  */
 public class StudentDao extends Database {
 
+    private String server = "localhost:3306";
+    private String database = "bootcampdb";
+    private String username = "root";
+    private String password = "therootisonfire";
+
     public StudentDao() {
         super();
     }
 
     public List<Student> getStudents() {
-
+        String query = "SELECT * FROM `bootcampdb`.`students`";
         Student st;
         List<Student> students = new ArrayList<>();
-
-        String server = "localhost:3306";
-        String database = "bootcampdb";
-        String username = "root";
-        String password = "therootisonfire";
-        String query = "SELECT * FROM `bootcampdb`.`students`";
 
         setOptions("?zeroDateTimeBehavior=convertToNull&serverTimezone=Europe/Athens&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false");
         ResultSet rs = Database(server, database, username, password, query);
@@ -52,6 +51,17 @@ public class StudentDao extends Database {
         }
 
         return students;
+    }
+
+    public boolean insertStudent(Student st) {
+        String query = "INSERT into `bootcampdb`.`students`(name,surname,grade,birthdate) values("
+                +"'"+st.getName()+"'"
+                +","+"'"+st.getSurname()+"'"+","+st.getGrade()+","
+                +"'"+st.getBirthDate()+"'"
+                + ");";
+         int i =Database(server, database, username, password, query,((byte)1));
+         if(i>=1) return true;
+        return false;
     }
 
 }
