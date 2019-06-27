@@ -55,17 +55,57 @@ public class StudentDao extends Database {
 
     public boolean insertStudent(Student st) {
         String query = "INSERT into `bootcampdb`.`students`(name,surname,grade,birthdate) values("
-                +"'"+st.getName()+"'"
-                +","+"'"+st.getSurname()+"'"+","+st.getGrade()+","
-                +"'"+st.getBirthDate()+"'"
+                + "'" + st.getName() + "'"
+                + "," + "'" + st.getSurname() + "'" + "," + st.getGrade() + ","
+                + "'" + st.getBirthDate() + "'"
                 + ");";
-         int i =Database(server, database, username, password, query,((byte)1));
-         if(i>=1) return true;
+        int i = Database(server, database, username, password, query, ((byte) 1));
+        if (i >= 1) {
+            return true;
+        }
         return false;
     }
-    public boolean deleteStudent(int id){
-        
+
+    public boolean deleteStudent(int id) {
+        String query = "DELETE from `bootcampdb`.`students` where ID=" + id + ";";
+        int i = Database(server, database, username, password, query, ((byte) 1));
+        if (i >= 1) {
+            return true;
+        }
         return false;
+    }
+
+    public boolean updateStudent(Student st) {
+        String query = "UPDATE `bootcampdb`.`students` set "
+                + "surname='"+st.getSurname()
+                +"', name='"+st.getName()+"', grade="+st.getGrade()+", birthdate='"
+                +st.getBirthDate()+"' where ID="+st.getId();
+        int i = Database(server, database, username, password, query, ((byte) 1));
+        if (i >= 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public Student getStudentByID(int id) {
+        setOptions("?zeroDateTimeBehavior=convertToNull&serverTimezone=Europe/Athens&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false");
+        String query = "SELECT * FROM `bootcampdb`.`students` where ID=" + id;
+        Student st = null;
+        ResultSet rs = Database(server, database, username, password, query);
+        if (rs == null) {
+            System.out.println("Error to the database");
+        }
+        try {
+            rs.next();
+            st = new Student(rs.getInt("ID"), rs.getString("SURNAME"),
+                    rs.getString("NAME"), rs.getFloat("GRADE"),
+                    rs.getString("BIRTHDATE"));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MyServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return st;
     }
 
 }

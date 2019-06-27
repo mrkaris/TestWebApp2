@@ -53,5 +53,9 @@ public class StudentService {
         StudentDao stuDao = new StudentDao();
         return stuDao.deleteStudent(id);
     }
+    public boolean updateStudent(Student st){
+        StudentDao stuDao= new StudentDao();
+        return stuDao.updateStudent(st);
+    }
 
 }

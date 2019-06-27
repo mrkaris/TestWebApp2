@@ -92,10 +92,12 @@ public class InsertStudentServlet extends HttpServlet {
                     Float.parseFloat(request.getParameter("grade")),
                     request.getParameter("birthdate"));
             out.println(request.getParameter("birthdate")); 
-//            if (ss.insertStudent(st)) {
-//                out.print("<h2> All inserted</h2>");
-//            }
-            out.println((ss.insertStudent(st)==true)?"<h2> All inserted</h2>":"<h2> Not inserted</h2>");
+            if (ss.insertStudent(st)) {
+                out.print("<h2> All inserted</h2>");
+            }else{
+                out.print("<h2> Not inserted</h2>");
+            }
+//            out.println((ss.insertStudent(st)==true)?"<h2> All inserted</h2>":"<h2> Not inserted</h2>");
             out.println("</body>");
             out.println("</html>");
         }

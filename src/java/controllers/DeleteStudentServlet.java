@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import services.StudentService;
 
 /**
  *
@@ -55,7 +56,6 @@ public class DeleteStudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -65,8 +65,20 @@ public class DeleteStudentServlet extends HttpServlet {
             out.println("<title>Servlet DeleteStudentServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteStudentServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteStudentServlet at  " + request.getContextPath() + "</h1>");
             //if param delete = some id call deleteStudent(someid) from student service
+            boolean deleted=false;
+            Integer id=null;
+            if (request.getParameter("delete")!=null){
+                 id=Integer.parseInt(request.getParameter("delete"));
+                StudentService ss= new StudentService();
+                deleted = ss.deleteStudent(id);
+            }
+            if(deleted){
+                out.println("<p>ID: "+id+" DELETED SUCCESSFULLY</p>");
+            }else{
+                out.println("SOMETHING WENT WRONG");
+            }
             out.println("</body>");
             out.println("</html>");
         }
