@@ -79,7 +79,7 @@ public class MyServlet extends HttpServlet {
         if(rs == null) { System.out.println("Error to the database");} 
         try {
             while(rs.next()) {
-                st = new Student(rs.getInt("ID"), rs.getString("SURNAME"), 
+                st = new Student(rs.getLong("ID"), rs.getString("SURNAME"), 
                                          rs.getString("NAME"), rs.getFloat("GRADE"), 
                                          rs.getString("BIRTHDATE")); 
                 students.add(st);

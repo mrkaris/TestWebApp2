@@ -92,7 +92,7 @@ public class InsertStudentServlet extends HttpServlet {
                     Float.parseFloat(request.getParameter("grade")),
                     request.getParameter("birthdate"));
             out.println(request.getParameter("birthdate")); 
-            if (ss.insertStudent(st)) {
+            if (ss.insertStudentJPA(st)) {
                 out.print("<h2> All inserted</h2>");
             }else{
                 out.print("<h2> Not inserted</h2>");

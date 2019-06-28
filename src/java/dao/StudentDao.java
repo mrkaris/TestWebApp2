@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import models.Student;
 
 /**
@@ -41,7 +43,7 @@ public class StudentDao extends Database {
         }
         try {
             while (rs.next()) {
-                st = new Student(rs.getInt("ID"), rs.getString("SURNAME"),
+                st = new Student(rs.getLong("ID"), rs.getString("SURNAME"),
                         rs.getString("NAME"), rs.getFloat("GRADE"),
                         rs.getString("BIRTHDATE"));
                 students.add(st);
@@ -66,6 +68,25 @@ public class StudentDao extends Database {
         return false;
     }
 
+    public boolean insertStudentJPA(Student st) {
+        EntityManagerFactory emf = javax.persistence.Persistence.createEntityManagerFactory("TestWebApp2PU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        boolean success=false;
+        try {
+            em.persist(st);
+            em.getTransaction().commit();
+            success=true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            emf.close();
+        }
+        return success;
+    }
+
     public boolean deleteStudent(int id) {
         String query = "DELETE from `bootcampdb`.`students` where ID=" + id + ";";
         int i = Database(server, database, username, password, query, ((byte) 1));
@@ -77,9 +98,10 @@ public class StudentDao extends Database {
 
     public boolean updateStudent(Student st) {
         String query = "UPDATE `bootcampdb`.`students` set "
-                + "surname='"+st.getSurname()
-                +"', name='"+st.getName()+"', grade="+st.getGrade()+", birthdate='"
-                +st.getBirthDate()+"' where ID="+st.getId();
+                + "surname='" + st.getSurname()
+                + "', name='" + st.getName() + "', grade=" + st.getGrade() + ", birthdate='"
+                + st.getBirthDate() + "' where ID=" + st.getId();
+//        System.out.println(query);
         int i = Database(server, database, username, password, query, ((byte) 1));
         if (i >= 1) {
             return true;
@@ -97,7 +119,7 @@ public class StudentDao extends Database {
         }
         try {
             rs.next();
-            st = new Student(rs.getInt("ID"), rs.getString("SURNAME"),
+            st = new Student(rs.getLong("ID"), rs.getString("SURNAME"),
                     rs.getString("NAME"), rs.getFloat("GRADE"),
                     rs.getString("BIRTHDATE"));
 

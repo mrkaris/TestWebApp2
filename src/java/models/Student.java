@@ -5,23 +5,37 @@
  */
 package models;
 
-import java.util.Objects;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
- * @author George.Pasparakis
+ * @author bestuser
  */
-public class Student {
-    // ID, SURNAME, NAME, GRADE, BIRTHDATE
+@Entity
+public class Student implements Serializable {
 
-    private int id;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String surname;
     private String name;
     private float grade;
     private String birthDate;
 
     public Student() {
-
+    }
+    
+    public Student(Long id, String surname, String name, float grade, String birthDate) {
+        this.id = id;
+        this.surname = surname;
+        this.name = name;
+        this.grade = grade;
+        this.birthDate = birthDate;
     }
 
     public Student(String surname, String name, float grade, String birthDate) {
@@ -29,22 +43,6 @@ public class Student {
         this.name = name;
         this.grade = grade;
         this.birthDate = birthDate;
-    }
-
-    public Student(int id, String surname, String name, float grade, String birthDate) {
-        this.id = id;
-        this.surname = surname;
-        this.name = name;
-        this.grade = grade;
-        this.birthDate = birthDate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getSurname() {
@@ -78,43 +76,31 @@ public class Student {
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
+    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + this.id;
-        hash = 29 * hash + Objects.hashCode(this.surname);
-        hash = 29 * hash + Objects.hashCode(this.name);
-        hash = 29 * hash + Float.floatToIntBits(this.grade);
-        hash = 29 * hash + Objects.hashCode(this.birthDate);
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Student)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Student other = (Student) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (Float.floatToIntBits(this.grade) != Float.floatToIntBits(other.grade)) {
-            return false;
-        }
-        if (!Objects.equals(this.surname, other.surname)) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.birthDate, other.birthDate)) {
+        Student other = (Student) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -122,7 +108,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" + "id=" + id + ", surname=" + surname + ", name=" + name + ", grade=" + grade + ", birthDate=" + birthDate + '}';
+        return "models.Student[ id=" + id + " ]";
     }
 
 }

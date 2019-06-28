@@ -64,8 +64,8 @@ public class UpdateStudentServlet extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("editstudent.jsp");
         request.setAttribute("title", "Update Student");
         Integer sid = Integer.parseInt(request.getParameter("update"));
-        StudentDao stDao = new StudentDao();
-        Student stu = stDao.getStudentByID(sid);
+        StudentService ss = new StudentService();
+        Student stu = ss.getStudentById(sid);
         request.setAttribute("id", stu.getId());
         request.setAttribute("name", stu.getName());
         request.setAttribute("surname", stu.getSurname());
@@ -99,17 +99,17 @@ public class UpdateStudentServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UpdateStudentServlet at " + request.getContextPath() + "</h1>");
-            st = new Student(Integer.parseInt(request.getParameter("id")), request.getParameter("surname"),
+            st = new Student(Long.parseLong(request.getParameter("id")), request.getParameter("surname"),
                     request.getParameter("name"),
                     Float.parseFloat(request.getParameter("grade")),
                     request.getParameter("birthdate"));
-            boolean updated= ss.updateStudent(st);
-            if (ss.updateStudent(st)) {
-                out.print("<h2> All updated</h2>");
-            } else {
-                out.print("<h2> Not updated</h2>");
-            }
-//            out.println((ss.insertStudent(st)==true)?"<h2> All inserted</h2>":"<h2> Not inserted</h2>");
+//            boolean updated= ss.updateStudent(st);
+//            if (ss.updateStudent(st)) {
+//                out.print("<h2> All updated</h2>");
+//            } else {
+//                out.print("<h2> Not updated</h2>");
+//            }
+            out.println((ss.updateStudent(st)==true)?"<h2> All inserted</h2>":"<h2> Not inserted</h2>");
             out.println("</body>");
             out.println("</html>");
         }

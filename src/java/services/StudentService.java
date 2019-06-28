@@ -45,7 +45,7 @@ public class StudentService {
         return strB.toString();
     }
 
-    public boolean insertStudent(Student st) {
+    public boolean insertStudentJPA(Student st) {
         StudentDao stuDao = new StudentDao();
         return stuDao.insertStudent(st);
     }
@@ -56,6 +56,11 @@ public class StudentService {
     public boolean updateStudent(Student st){
         StudentDao stuDao= new StudentDao();
         return stuDao.updateStudent(st);
+    }
+    public Student getStudentById(int id){
+        StudentDao stDao = new StudentDao();
+        Student stu = stDao.getStudentByID(id);
+        return stu;
     }
 
 }

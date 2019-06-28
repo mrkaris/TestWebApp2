@@ -24,7 +24,7 @@
             Surname: <input type="text" name="surname" value="<%=request.getAttribute("surname")%>"/><br>
             Grade: <input type="number" name="grade" value="<%=request.getAttribute("grade")%>"/><br>
             Birthdate: <input type="date" name="birthdate" value="<%=request.getAttribute("birthdate")%>"/><br>
-            ID: <input type="hidden" name="id" value="<%=request.getAttribute("id")%>"/><br>
+            <input type="hidden" name="id" value="<%=request.getAttribute("id")%>"/><br>
             
             <input type="submit" name="new" value="Edit Student" />
         </form>
